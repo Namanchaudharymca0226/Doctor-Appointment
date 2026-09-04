@@ -1,0 +1,145 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MediQ | Doctor Control Panel</title>
+  
+  <!-- Shared Stylesheet for Consistent Medical UI -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- 1. HEADER / NAVIGATION BAR -->
+  <header class="header">
+    <div class="nav-container">
+      <a href="doctor.html" class="brand-logo">
+        <span class="brand-icon">🩺</span>
+        <span>MediQ Doctor Panel</span>
+      </a>
+      
+      <div class="nav-links">
+        <a href="index.html" class="nav-link">Patient View 👥</a>
+        <a href="doctor.html" class="nav-link active">Doctor Panel</a>
+        <div class="queue-status-badge">
+          <span class="status-dot"></span>
+          <span>Live Console</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- 2. MAIN CONTENT -->
+  <main class="main-content">
+    
+    <!-- Intro Headline -->
+    <section class="page-intro">
+      <h1>OPD Live Queue Control Room</h1>
+      <p>Manage patient flow, advance consultation tokens, and announce clinic queue delays in real-time.</p>
+    </section>
+
+    <div class="doctor-dashboard">
+
+      <!-- ROW 1: LIVE METRICS SUMMARY -->
+      <section class="metrics-grid">
+        
+        <!-- Currently Serving Token Card -->
+        <div class="metric-card highlight">
+          <span class="metric-label">Currently Serving</span>
+          <div class="metric-value" id="currentServingDisplay">#00</div>
+          <span class="metric-sub" id="currentPatientName">No active consultation</span>
+        </div>
+
+        <!-- Patients Waiting Count -->
+        <div class="metric-card">
+          <span class="metric-label">Patients Waiting</span>
+          <div class="metric-value" id="waitingCountDisplay">0</div>
+          <span class="metric-sub">In queue</span>
+        </div>
+
+        <!-- Patients Completed Count -->
+        <div class="metric-card">
+          <span class="metric-label">Completed</span>
+          <div class="metric-value" id="completedCountDisplay">0</div>
+          <span class="metric-sub">Finished today</span>
+        </div>
+
+        <!-- Queue Delay Metric -->
+        <div class="metric-card">
+          <span class="metric-label">Announced Delay</span>
+          <div class="metric-value" style="color: var(--warning-color);" id="delayDisplay">0m</div>
+          <span class="metric-sub">Global added buffer</span>
+        </div>
+
+      </section>
+
+      <!-- ROW 2: DOCTOR QUEUE ACTIONS / BUTTONS -->
+      <section class="controls-card">
+        <h2 class="card-title">Queue Actions</h2>
+        <p class="card-subtitle" style="margin-bottom: 0.75rem;">Directly control the patient queue flow and notify patient screens.</p>
+
+        <div class="controls-grid">
+          <!-- Call Next Patient -->
+          <button id="callNextBtn" class="btn btn-primary">
+            <span>📢 Call Next Patient</span>
+          </button>
+
+          <!-- Mark Consultation Completed -->
+          <button id="markCompletedBtn" class="btn btn-success">
+            <span>✓ Mark Completed</span>
+          </button>
+
+          <!-- Delay Queue (+10 Mins) -->
+          <button id="delayQueueBtn" class="btn btn-warning">
+            <span>⏱️ Delay Queue (+10 Mins)</span>
+          </button>
+
+          <!-- Clear/Reset Queue Data -->
+          <button id="resetQueueBtn" class="btn btn-danger">
+            <span>🗑️ Reset All Queue Data</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- ROW 3: ALL PATIENTS LIVE QUEUE TABLE -->
+      <section class="table-card">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <div>
+            <h2 class="card-title">Patient Queue Register</h2>
+            <p class="card-subtitle" style="margin-bottom: 0;">Live list of all registered patients in MongoDB.</p>
+          </div>
+          <button id="addSamplePatientBtn" class="btn btn-secondary" style="width: auto; margin-top: 0; padding: 0.5rem 1rem;">
+            + Quick Add Sample Patient
+          </button>
+        </div>
+
+        <table class="queue-table">
+          <thead>
+            <tr>
+              <th>Token #</th>
+              <th>Patient Name</th>
+              <th>Phone</th>
+              <th>Doctor</th>
+              <th>Time Window</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="queueTableBody">
+            <!-- Dynamically populated rows -->
+          </tbody>
+        </table>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- 3. FOOTER -->
+  <footer class="footer">
+    <p>&copy; 2026 MediQ Smart Queue System. Doctor Control Center.</p>
+  </footer>
+
+  <!-- Doctor Logic Script -->
+  <script src="doctor.js"></script>
+</body>
+</html>

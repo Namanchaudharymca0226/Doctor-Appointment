@@ -1,0 +1,171 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MediQ | Smart OPD Queue & Patient Booking</title>
+  
+  <!-- Shared Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- 1. HEADER / NAVIGATION BAR -->
+  <header class="header">
+    <div class="nav-container">
+      <a href="index.html" class="brand-logo">
+        <span class="brand-icon">🏥</span>
+        <span>MediQ Clinic</span>
+      </a>
+      
+      <div class="nav-links">
+        <a href="index.html" class="nav-link active">Patient View</a>
+        <a href="doctor.html" class="nav-link">Doctor Panel 🩺</a>
+        <div class="queue-status-badge">
+          <span class="status-dot"></span>
+          <span>Live Sync</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- 2. MAIN CONTENT -->
+  <main class="main-content">
+    
+    <!-- Intro Headline -->
+    <section class="page-intro">
+      <h1>Smart OPD Queue & Token Booking</h1>
+      <p>Enter your patient details to secure your spot and monitor live queue wait times.</p>
+    </section>
+
+    <div class="card-wrapper">
+
+      <!-- VIEW 1: PATIENT CHECK-IN / BOOKING FORM -->
+      <section id="bookingSection" class="card">
+        <h2 class="card-title">Patient Check-In</h2>
+        <p class="card-subtitle">Fill in your information to receive your digital consultation token.</p>
+
+        <form id="appointmentForm">
+          
+          <!-- Patient Name -->
+          <div class="form-group">
+            <label for="patientName">Patient Full Name *</label>
+            <input 
+              type="text" 
+              id="patientName" 
+              name="patientName" 
+              class="form-control" 
+              placeholder="e.g. John Doe" 
+              required
+            >
+          </div>
+
+          <!-- Phone Number -->
+          <div class="form-group">
+            <label for="phoneNumber">Phone Number *</label>
+            <input 
+              type="tel" 
+              id="phoneNumber" 
+              name="phoneNumber" 
+              class="form-control" 
+              placeholder="e.g. +1 (555) 019-2834" 
+              required
+            >
+          </div>
+
+          <!-- Doctor Selection -->
+          <div class="form-group">
+            <label for="doctorSelect">Select Doctor *</label>
+            <select id="doctorSelect" name="doctorSelect" class="form-control" required>
+              <option value="" disabled selected>-- Choose your consulting doctor --</option>
+              <option value="Dr. Smith (General Physician)">Dr. Smith — General Physician</option>
+              <option value="Dr. Sharma (Cardiologist)">Dr. Sharma — Cardiologist</option>
+              <option value="Dr. Patel (Pediatrics)">Dr. Patel — Pediatrics</option>
+            </select>
+          </div>
+
+          <!-- Preferred Time Window -->
+          <div class="form-group">
+            <label for="timeWindow">Preferred Time Window *</label>
+            <select id="timeWindow" name="timeWindow" class="form-control" required>
+              <option value="" disabled selected>-- Select appointment window --</option>
+              <option value="Morning (09:00 AM – 12:00 PM)">Morning (09:00 AM – 12:00 PM)</option>
+              <option value="Afternoon (01:00 PM – 04:00 PM)">Afternoon (01:00 PM – 04:00 PM)</option>
+              <option value="Evening (05:00 PM – 08:00 PM)">Evening (05:00 PM – 08:00 PM)</option>
+            </select>
+          </div>
+
+          <!-- Submit Button -->
+          <button type="submit" id="bookBtn" class="btn btn-primary">
+            <span>Book Appointment & Get Token</span>
+            <span>→</span>
+          </button>
+
+        </form>
+      </section>
+
+      <!-- VIEW 2: LIVE TOKEN CARD (Shown after booking or if active token in storage) -->
+      <section id="tokenSection" class="card hidden">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+          <h2 class="card-title" style="margin-bottom: 0;">Your Live Queue Pass</h2>
+          <span id="displayStatusBadge" class="status-badge status-waiting">Waiting</span>
+        </div>
+        <p class="card-subtitle">Keep this page open. Status and wait times update in real-time.</p>
+
+        <!-- Digital Ticket Card -->
+        <div class="token-ticket">
+          <div class="token-badge-title">Queue Token Number</div>
+          <div class="token-number-display" id="displayTokenNumber">#01</div>
+          
+          <div class="token-wait-time-badge">
+            <span>⏱️ Est. Wait:</span>
+            <span id="displayWaitTime">Calculating...</span>
+          </div>
+
+          <!-- Dynamic Details List -->
+          <div class="token-info-list">
+            <div class="token-info-item">
+              <span>Patient Name:</span>
+              <strong id="displayPatientName">—</strong>
+            </div>
+            <div class="token-info-item">
+              <span>Doctor:</span>
+              <strong id="displayDoctor">—</strong>
+            </div>
+            <div class="token-info-item">
+              <span>Time Window:</span>
+              <strong id="displayTimeWindow">—</strong>
+            </div>
+            <div class="token-info-item">
+              <span>Phone Contact:</span>
+              <strong id="displayPhone">—</strong>
+            </div>
+            <div class="token-info-item">
+              <span>Currently Serving:</span>
+              <strong id="displayCurrentlyServing">None (#00)</strong>
+            </div>
+          </div>
+
+          <div class="queue-position-info">
+            👥 Position in Line: <span id="displayQueuePosition">—</span>
+          </div>
+        </div>
+
+        <!-- Action Button to Cancel or Book New -->
+        <button id="cancelTokenBtn" class="btn btn-secondary">
+          Cancel / Leave Queue & Book New
+        </button>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- 3. FOOTER -->
+  <footer class="footer">
+    <p>&copy; 2026 MediQ Smart Queue System. Built for fast & efficient healthcare service.</p>
+  </footer>
+
+  <!-- Patient Logic Script -->
+  <script src="script.js"></script>
+</body>
+</html>
